@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
+import UploadFile from './pages/UploadFile';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [data, setData] = useState(null);
+
+    const fillTableRows = async () => {
+        const res = await fetch('http://localhost:3010/tableData', { method: 'GET' });
+        const data = await res.json();
+    
+        if(data) setData(data);
+    };
+    
+    useEffect(() => {
+        fillTableRows();
+    }, []);
+    
+    return(
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home data={data} />} />
+                <Route path="/upload" element={<UploadFile fillTableRows={fillTableRows} />} />
+            </Routes>
+        </BrowserRouter>
+    )
+};
 
 export default App;
