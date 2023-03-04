@@ -8,7 +8,7 @@ const UploadFile = ({ fillTableRows }) => {
         var formData = new FormData();
         formData.append('file', file);
 
-        const uploadedFile = await fetch('http://localhost:3010/uploadFile', {
+        const uploadedFile = await fetch('https://weather-data-server.onrender.com/uploadFile', {
             method: 'POST',
             body: formData
         });

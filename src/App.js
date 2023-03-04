@@ -8,7 +8,7 @@ const App = () => {
     const [data, setData] = useState(null);
 
     const fillTableRows = async () => {
-        const res = await fetch('http://localhost:3010/tableData', { method: 'GET' });
+        const res = await fetch('https://weather-data-server.onrender.com/tableData', { method: 'GET' });
         const data = await res.json();
     
         if(data) setData(data);
